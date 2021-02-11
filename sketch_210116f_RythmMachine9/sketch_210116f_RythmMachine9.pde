@@ -124,6 +124,8 @@ void draw() {
 class RhythmMachine implements Instrument {
 
   void noteOn(float duration) {
+    params.update();
+    
     if (toggles[1][beat].getBooleanValue()) {
       out.playNote( 0, 0.1, new SampleInstrument(sound1 ) );  
       //out.playNote( 0.125, 0.1, new SampleInstrument(sound1 ) );  
@@ -150,7 +152,7 @@ class RhythmMachine implements Instrument {
     }    
     if (toggles[5][beat].getBooleanValue()) {
    //   sound4.trigger();
-      params.update();
+
      out.playNote( 0, 0.5, new ToneInstrument( params ) );  
     }
     if (beat%4 == 0) {
