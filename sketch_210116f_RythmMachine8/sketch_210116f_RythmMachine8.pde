@@ -69,7 +69,7 @@ class RhythmMachine implements Instrument {
       //params.update();
       //out.playNote( 0, 0.95, new ToneInstrument( params ) );  
    }
-}
+　}
 
   void noteOff() {
      beat++;
