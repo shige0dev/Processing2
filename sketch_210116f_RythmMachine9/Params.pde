@@ -35,6 +35,6 @@ class Params {
     //r2 = R2;
     modamp2 = ModAmp2;
     modform2 = ModForm2;    
-    modfreq2 = ModFreq2;
+    modfreq2 = ModFreq2;    
   }
 }

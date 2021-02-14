@@ -2,6 +2,7 @@ float Amp1, Freq1, A1, D1, S1, R1, ModAmp1, ModFreq1;
 float Amp2, Freq2, A2, D2, S2, R2, ModAmp2, ModFreq2;
 int WaveForm1, WaveForm2;
 int ModForm1,ModForm2;
+Knob Kbpm,KgateTime;
 
 void setupGUI() {
   cp5 = new ControlP5(this);
@@ -16,13 +17,13 @@ void setupGUI() {
     .setPosition( width/14 * 9- knobRadius, height/8 * 1 - knobRadius)
     .setDragDirection(Knob.VERTICAL)
     .setRadius(knobRadius);
+    
   cp5.addKnob("gateTime")
     .setRange(0.1, 0.5)
     .setValue(0.2)
     .setPosition( width/14 * 10- knobRadius, height/8 * 1 - knobRadius)
     .setDragDirection(Knob.VERTICAL)
     .setRadius(knobRadius);
-
 
   cp5.addKnob("SoundSelect")
     .setRange(1, 6)
