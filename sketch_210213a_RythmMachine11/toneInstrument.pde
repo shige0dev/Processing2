@@ -9,16 +9,20 @@ class ToneInstrument implements Instrument
   Constant const1,const2;
   Summer sum1,sum2;
   Midi2Hz midi2hz1,midi2hz2;
-  Delay delay1,delay2;
-    //Delay delay;
+  Multiplier send1,send2;
+  
   // constructor for this instrument
   ToneInstrument( Params _params)
   {    
     adsr1 = new ADSR( 0.5, _params.a1, _params.d1, 0.0 , _params.d1);
     adsr2 = new ADSR( 0.5, _params.a2, _params.d2, 0.0 , _params.d2 );
-    delay1 = new Delay( 0.4, 0.5, true, true );
-    delay2  = new Delay( 0.4, 0.5, true, true );
     sum1 = new Summer();
+    sum2 = new Summer();
+    send1 = new Multiplier(_params.send/127);
+    send2 = new Multiplier(_params.send/127);
+
+
+    
     switch(_params.modform1){
      case 1:
       lfo1 = new Oscil( pow(2,_params.modfreq1/12 - 4), _params.modamp1*5, Waves.SINE); lfo1.setPhase(.5);   lfo1.patch(sum1);
@@ -150,16 +154,20 @@ class ToneInstrument implements Instrument
     adsr1.noteOn();
     adsr2.noteOn();
     // patch to the output
-    adsr1.patch( delay1 ).patch( out );
-    adsr2.patch( delay2 ).patch( out );
+    adsr1.patch(send1).patch( sum );
+    adsr1.patch( out );
+    adsr2.patch(send2).patch( sum );
+    adsr2.patch( out );    
   }
 
   // every instrument must have a noteOff() method
   void noteOff()
   {
     // tell the ADSR to unpatch after the release is finished
-    adsr1.unpatchAfterRelease( delay1 );
-    adsr2.unpatchAfterRelease( delay2 );
+    adsr1.unpatchAfterRelease( send1 );
+    adsr2.unpatchAfterRelease( send2 );
+    adsr1.unpatchAfterRelease( out );
+    adsr2.unpatchAfterRelease( out );   
     // call the noteOff 
     adsr1.noteOff();
     adsr2.noteOff();

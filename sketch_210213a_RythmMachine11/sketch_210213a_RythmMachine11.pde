@@ -13,6 +13,8 @@ AudioOutput out;
 Oscil sineOsc;
 ADSR  adsr;
 Midi2Hz midi2hz;
+Summer sum;
+Delay delay;
 
 int bpm;
 int filter;
@@ -34,7 +36,10 @@ void setup() {
 
   minim = new Minim(this);
   out = minim.getLineOut();
-
+  delay = new Delay( 0.5, 0.5, true, false );
+  sum = new Summer();
+  sum.patch(delay).patch(out);
+   
   params[0] = new Params();
   params[1] = new Params();
   params[2] = new Params();
@@ -46,9 +51,6 @@ void setup() {
   out.playNote(0.0, 0.25, new RhythmMachine() );
 }
 
-void filter() {
-  moog.frequency.setLastValue(moogFilter.getValue());
-}
 
 void bang0() {
   for (int i = 0; i < 16; i++) {
