@@ -1,2 +1,3 @@
-# Auto detect text files and perform LF normalization
+https://github.com/shige0dev/Processing/blob/master/.gitattributes# Auto detect text files and perform LF normalization
 * text=auto
+*. linguist-language=Processing
